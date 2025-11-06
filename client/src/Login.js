@@ -1,7 +1,8 @@
 import { useState } from 'react';
-import { supabase } from './supabaseClient'; // Import our client
+import { supabase } from './supabaseClient';
 
-function Login() {
+// Pass `showRegister` as a prop
+function Login({ showRegister }) { // <--- MODIFIED
   const [loading, setLoading] = useState(false);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -11,8 +12,7 @@ function Login() {
     e.preventDefault();
     setLoading(true);
     setMessage('');
-
-    // This is the Supabase auth call
+    
     const { error } = await supabase.auth.signInWithPassword({
       email: email,
       password: password,
@@ -22,7 +22,6 @@ function Login() {
       setMessage(`Login failed: ${error.message}`);
     } else {
       setMessage('Logged in! The page will refresh.');
-      // The onAuthStateChange in App.js will detect this and show the app
     }
     setLoading(false);
   };
@@ -37,21 +36,22 @@ function Login() {
           value={email}
           onChange={(e) => setEmail(e.target.value)}
         /><br/>
-        
-        {/* --- THIS IS THE CORRECTED PART --- */}
         <input
           type="password"
           placeholder="Your password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         /><br/>
-        
         <button type="submit" disabled={loading}>
           {loading ? 'Logging in...' : 'Login'}
         </button>
-        {/* --- END OF CORRECTIONS --- */}
       </form>
       {message && <p>{message}</p>}
+      
+      {/* --- THIS IS THE NEW LINK --- */}
+      <a href="#" onClick={(e) => { e.preventDefault(); showRegister(); }}>
+        Don't have an account? Register
+      </a>
     </div>
   );
 }
