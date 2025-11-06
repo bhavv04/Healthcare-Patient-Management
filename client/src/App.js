@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import './App.css';
 import { supabase } from './supabaseClient';
-import Login from './Login';
+import Login from './login';
 import Register from './Register'; // <--- IMPORT REGISTER
 
 function App() {
