@@ -48,9 +48,7 @@ function Login({ showRegister, showForgotPassword }) { // <--- MODIFIED
       </form>
       {message && <p>{message}</p>}
       
-      <a href="#" onClick={(e) => { e.preventDefault(); showRegister(); }}>
-        Don't have an account? Register
-      </a>
+    
 
       <a href="#" onClick={(e) => { e.preventDefault(); showForgotPassword(); }}>
         Forgot your password?
