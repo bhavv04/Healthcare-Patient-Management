@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { supabase } from './supabaseClient';
 
 // Pass `showRegister` as a prop
-function Login({ showRegister }) { // <--- MODIFIED
+function Login({ showRegister, showForgotPassword }) { // <--- MODIFIED
   const [loading, setLoading] = useState(false);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -48,10 +48,18 @@ function Login({ showRegister }) { // <--- MODIFIED
       </form>
       {message && <p>{message}</p>}
       
-      {/* --- THIS IS THE NEW LINK --- */}
+    
+
+      <a href="#" onClick={(e) => { e.preventDefault(); showForgotPassword(); }}>
+        Forgot your password?
+      </a>
+      
+      <br /> {/* Added a line break for spacing */}
+      
       <a href="#" onClick={(e) => { e.preventDefault(); showRegister(); }}>
         Don't have an account? Register
       </a>
+
     </div>
   );
 }
