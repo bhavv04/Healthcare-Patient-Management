@@ -1,117 +1,82 @@
 import { useState, useEffect } from 'react';
+import { Routes, Route, Navigate } from 'react-router-dom';
 import './App.css';
 import { supabase } from './supabaseClient';
 import Login from './Login';
 import Register from './Register'; 
 import ForgotPassword from './ForgotPassword';
+import UpdatePassword from './UpdatePassword'; // Import the new page
+import Dashboard from './Dashboard'; // Import the dashboard
 
 function App() {
-  const [name, setName] = useState('');
-  const [response, setResponse] = useState('');
   const [session, setSession] = useState(null);
-  const [loading, setLoading] = useState(false);
-  
-  // --- NEW STATE TO MANAGE LOGIN/REGISTER VIEW ---
-  const [view, setView] = useState('login');
 
   useEffect(() => {
+    // Get the current session
     supabase.auth.getSession().then(({ data: { session } }) => {
       setSession(session);
     });
 
+    // Listen for auth changes (login, logout, password recovery)
     const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
       setSession(session);
     });
 
     return () => subscription.unsubscribe();
-  }, []);
+  }, []); // Run only once on app load
 
-  const handleSubmit = async (e) => {
-    // ... (This function is the same as before, no changes)
-    e.preventDefault();
-    setLoading(true);
-    if (!session) {
-      setResponse('Error: You must be logged in to add a patient.');
-      setLoading(false);
-      return;
-    }
-    try {
-      setResponse('Sending...');
-      const res = await fetch('http://127.0.0.1:5000/patients', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${session.access_token}`,
-        },
-        body: JSON.stringify({ name }),
-      });
-      const data = await res.json();
-      if (!res.ok) {
-        throw new Error(data.error || 'Failed to add patient');
-      }
-      setResponse(`Patient "${name}" was recorded with ID: ${data.id}`);
-      setName('');
-    } catch (error) {
-      console.error('Error:', error);
-      setResponse(error.message);
-    }
-    setLoading(false);
-  };
-
-
-  // 1. If user is logged in, show the app
-  if (session) {
-    return (
-      <div className="App">
-        <h1>Patient Monitoring System</h1>
-        <p>Welcome, {session.user.email}</p>
-        
-        <form onSubmit={handleSubmit}>
-          <input
-            type="text"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-            placeholder="Enter patient's full name"
-          />
-          <button type="submit" disabled={loading}>
-            {loading ? "Adding..." : "Add Patient"}
-          </button>
-        </form>
-        {response && <p>{response}</p>}
-
-        <button 
-          style={{marginTop: "20px"}} 
-          onClick={() => supabase.auth.signOut()}>
-          Logout
-        </button>
-      </div>
-    );
-  }
-
-  // 2. If user is NOT logged in, show EITHER Login or Register
-  let formComponent;
-  if (view === 'login') {
-    formComponent = <Login 
-                      showRegister={() => setView('register')} 
-                      showForgotPassword={() => setView('forgotPassword')} 
-                    />;
-  } else if (view === 'register') {
-    formComponent = <Register 
-                      showLogin={() => setView('login')} 
-                    />;
-  } else {
-    formComponent = <ForgotPassword 
-                      showLogin={() => setView('login')} 
-                    />;
-  }
-
+  // --- Main Render Logic ---
+  // We now use <Routes> instead of "if (session)"
   return (
     <div className="App">
       <h1>Patient Monitoring System</h1>
-      {formComponent}
+      <Routes>
+        <Route 
+          path="/" 
+          element={
+            // If no session, show the AuthPage.
+            // If there is a session, automatically send to /dashboard
+            !session ? <AuthPage /> : <Navigate to="/dashboard" />
+          } 
+        />
+        <Route 
+          path="/dashboard" 
+          element={
+            // If there is a session, show the Dashboard.
+            // If no session, send back to the login page
+            session ? <Dashboard session={session} /> : <Navigate to="/" />
+          } 
+        />
+        <Route 
+          path="/update-password" 
+          element={<UpdatePassword />} 
+        />
+      </Routes>
     </div>
   );
+}
 
+// --- NEW HELPER COMPONENT ---
+// This component now holds all the logic for switching
+// between Login, Register, and ForgotPassword.
+function AuthPage() {
+  const [view, setView] = useState('login');
+
+  if (view === 'login') {
+    return <Login 
+              showRegister={() => setView('register')} 
+              showForgotPassword={() => setView('forgotPassword')} 
+           />;
+  }
+  if (view === 'register') {
+    return <Register 
+              showLogin={() => setView('login')} 
+           />;
+  }
+  // This will show if view is 'forgotPassword'
+  return <ForgotPassword 
+            showLogin={() => setView('login')} 
+         />;
 }
 
 export default App;
