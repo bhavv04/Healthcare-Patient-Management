@@ -1,6 +1,6 @@
 # Healthcare Patient Management System
 
-A full-stack web application for managing patient records, built with React (frontend) and Flask (backend) with SQLite database.
+A full-stack web application for managing patient records, built with React (frontend), Flask (backend), and Supabase for database management.
 
 ## Prerequisites
 
@@ -8,6 +8,16 @@ Before you begin, ensure you have the following installed:
 - **Node.js** (v14 or higher) - [Download here](https://nodejs.org/)
 - **Python** (v3.8 or higher) - [Download here](https://python.org/downloads/)
 - **Git** - [Download here](https://git-scm.com/downloads)
+- **Supabase Account** - [Sign up here](https://supabase.com/)
+
+## Environment Setup
+
+Create a `.env` file in the client directory with your Supabase credentials:
+```
+REACT_APP_SUPABASE_URL=your_supabase_project_url
+REACT_APP_SUPABASE_ANON_KEY=your_supabase_anon_key
+```
+
 
 ## Project Structure
 
