@@ -2,7 +2,8 @@ import { useState, useEffect } from 'react';
 import './App.css';
 import { supabase } from './supabaseClient';
 import Login from './Login';
-import Register from './Register'; // <--- IMPORT REGISTER
+import Register from './Register'; 
+import ForgotPassword from './ForgotPassword';
 
 function App() {
   const [name, setName] = useState('');
@@ -11,7 +12,7 @@ function App() {
   const [loading, setLoading] = useState(false);
   
   // --- NEW STATE TO MANAGE LOGIN/REGISTER VIEW ---
-  const [showLogin, setShowLogin] = useState(true);
+  const [view, setView] = useState('login');
 
   useEffect(() => {
     supabase.auth.getSession().then(({ data: { session } }) => {
@@ -88,17 +89,29 @@ function App() {
   }
 
   // 2. If user is NOT logged in, show EITHER Login or Register
+  let formComponent;
+  if (view === 'login') {
+    formComponent = <Login 
+                      showRegister={() => setView('register')} 
+                      showForgotPassword={() => setView('forgotPassword')} 
+                    />;
+  } else if (view === 'register') {
+    formComponent = <Register 
+                      showLogin={() => setView('login')} 
+                    />;
+  } else {
+    formComponent = <ForgotPassword 
+                      showLogin={() => setView('login')} 
+                    />;
+  }
+
   return (
     <div className="App">
       <h1>Patient Monitoring System</h1>
-      { showLogin ? (
-          <Login showRegister={() => setShowLogin(false)} />
-        ) : (
-          <Register showLogin={() => setShowLogin(true)} />
-        )
-      }
+      {formComponent}
     </div>
   );
+
 }
 
 export default App;
