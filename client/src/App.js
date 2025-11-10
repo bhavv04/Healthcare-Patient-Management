@@ -2,11 +2,13 @@ import { useState, useEffect } from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
 import './App.css';
 import { supabase } from './supabaseClient';
-import Login from './Login';
+import Login from './login';
 import Register from './Register'; 
-import ForgotPassword from './ForgotPassword';
+import ForgotPassword from './forgotPassword';
 import UpdatePassword from './UpdatePassword'; // Import the new page
 import Dashboard from './Dashboard'; // Import the dashboard
+
+
 
 function App() {
   const [session, setSession] = useState(null);
