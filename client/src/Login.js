@@ -1,12 +1,13 @@
 import { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import { supabase } from './supabaseClient';
 
-// Pass `showRegister` as a prop
-function Login({ showRegister, showForgotPassword }) { // <--- MODIFIED
+function Login() {
   const [loading, setLoading] = useState(false);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [message, setMessage] = useState('');
+  const navigate = useNavigate();
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -21,7 +22,8 @@ function Login({ showRegister, showForgotPassword }) { // <--- MODIFIED
     if (error) {
       setMessage(`Login failed: ${error.message}`);
     } else {
-      setMessage('Logged in! The page will refresh.');
+      setMessage('Logged in! Redirecting...');
+      navigate('/dashboard');
     }
     setLoading(false);
   };
@@ -48,18 +50,15 @@ function Login({ showRegister, showForgotPassword }) { // <--- MODIFIED
       </form>
       {message && <p>{message}</p>}
       
-    
-
-      <a href="#" onClick={(e) => { e.preventDefault(); showForgotPassword(); }}>
+      <Link to="/forgot-password">
         Forgot your password?
-      </a>
+      </Link>
       
-      <br /> {/* Added a line break for spacing */}
+      <br />
       
-      <a href="#" onClick={(e) => { e.preventDefault(); showRegister(); }}>
+      <Link to="/register">
         Don't have an account? Register
-      </a>
-
+      </Link>
     </div>
   );
 }

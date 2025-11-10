@@ -4,9 +4,10 @@ import './App.css';
 import { supabase } from './supabaseClient';
 import Login from './login';
 import Register from './Register'; 
-import ForgotPassword from './forgotPassword';
-import UpdatePassword from './UpdatePassword'; // Import the new page
-import Dashboard from './Dashboard'; // Import the dashboard
+import ForgotPassword from './ForgotPassword';
+import UpdatePassword from './UpdatePassword';
+import Dashboard from './Dashboard';
+import Home from './Home';
 
 
 
@@ -25,60 +26,60 @@ function App() {
     });
 
     return () => subscription.unsubscribe();
-  }, []); // Run only once on app load
+  }, []);
 
-  // --- Main Render Logic ---
-  // We now use <Routes> instead of "if (session)"
   return (
     <div className="App">
       <h1>Patient Monitoring System</h1>
       <Routes>
+        {/* Home route */}
         <Route 
           path="/" 
           element={
-            // If no session, show the AuthPage.
-            // If there is a session, automatically send to /dashboard
-            !session ? <AuthPage /> : <Navigate to="/dashboard" />
+            session ? <Navigate to="/dashboard" /> : <Home />
           } 
         />
+        
+        {/* Login route */}
         <Route 
-          path="/dashboard" 
+          path="/login" 
           element={
-            // If there is a session, show the Dashboard.
-            // If no session, send back to the login page
-            session ? <Dashboard session={session} /> : <Navigate to="/" />
+            !session ? <Login /> : <Navigate to="/dashboard" />
           } 
         />
+        
+        {/* Register route */}
+        <Route 
+          path="/register" 
+          element={
+            !session ? <Register /> : <Navigate to="/dashboard" />
+          } 
+        />
+        
+        {/* Forgot Password route */}
+        <Route 
+          path="/forgot-password" 
+          element={
+            !session ? <ForgotPassword /> : <Navigate to="/dashboard" />
+          } 
+        />
+        
+        {/* Update Password route */}
         <Route 
           path="/update-password" 
           element={<UpdatePassword />} 
         />
+        
+        {/* Dashboard route */}
+        <Route 
+          path="/dashboard" 
+          element={
+            session ? <Dashboard session={session} /> : <Navigate to="/login" />
+          } 
+        />
       </Routes>
     </div>
   );
-}
-
-// --- NEW HELPER COMPONENT ---
-// This component now holds all the logic for switching
-// between Login, Register, and ForgotPassword.
-function AuthPage() {
-  const [view, setView] = useState('login');
-
-  if (view === 'login') {
-    return <Login 
-              showRegister={() => setView('register')} 
-              showForgotPassword={() => setView('forgotPassword')} 
-           />;
-  }
-  if (view === 'register') {
-    return <Register 
-              showLogin={() => setView('login')} 
-           />;
-  }
-  // This will show if view is 'forgotPassword'
-  return <ForgotPassword 
-            showLogin={() => setView('login')} 
-         />;
 }
 
 export default App;

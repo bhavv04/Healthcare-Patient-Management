@@ -34,8 +34,7 @@ function UpdatePassword() {
 
     setLoading(true);
 
-    
-    // It updates the password for the temporarily logged-in user.
+    // Update the password for the temporarily logged-in user
     const { error } = await supabase.auth.updateUser({
       password: password
     });
@@ -43,11 +42,11 @@ function UpdatePassword() {
     if (error) {
       setMessage(`Error: ${error.message}`);
     } else {
-      setMessage('Password updated successfully! You can now log in.');
+      setMessage('Password updated successfully! Redirecting to login...');
       // Log the user out of the temporary session
       await supabase.auth.signOut();
-      // Send them back to the login page after 3 seconds
-      setTimeout(() => navigate('/'), 3000);
+      // Send them to the login page after 3 seconds
+      setTimeout(() => navigate('/login'), 3000);
     }
     setLoading(false);
   };

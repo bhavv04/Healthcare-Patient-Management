@@ -1,16 +1,17 @@
 import { useState } from 'react';
-import { supabase } from './supabaseClient'; // Import our client
+import { Link, useNavigate } from 'react-router-dom';
+import { supabase } from './supabaseClient';
 
-// Pass `showLogin` as a prop so we can switch back
-function Register({ showLogin }) {
+function Register() {
   const [loading, setLoading] = useState(false);
   const [fullName, setFullName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [message, setMessage] = useState('');
+  const navigate = useNavigate();
 
-const handleRegister = async (e) => {
+  const handleRegister = async (e) => {
     e.preventDefault();
     setMessage('');
 
@@ -23,12 +24,10 @@ const handleRegister = async (e) => {
     setLoading(true);
 
     // --- Supabase auth.signUp() call ---
-    // This is the "Registration" use case 
     const { data, error } = await supabase.auth.signUp({
       email: email,
       password: password,
       options: {
-        // We can store the 'full_name' in the user's metadata
         data: {
           full_name: fullName 
         }
@@ -39,6 +38,8 @@ const handleRegister = async (e) => {
       setMessage(`Registration failed: ${error.message}`);
     } else {
       setMessage('Registration successful! Please check your email to confirm your account.');
+      // Optionally redirect to login after a delay
+      setTimeout(() => navigate('/login'), 2000);
     }
     setLoading(false);
   };
@@ -78,9 +79,9 @@ const handleRegister = async (e) => {
       </form>
       {message && <p>{message}</p>}
       
-      <a href="#" onClick={(e) => { e.preventDefault(); showLogin(); }}>
+      <Link to="/login">
         Already have an account? Login
-      </a>
+      </Link>
     </div>
   );
 }
