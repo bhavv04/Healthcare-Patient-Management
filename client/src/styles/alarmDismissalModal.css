@@ -1,0 +1,340 @@
+/* Alarm Dismissal Modal Styles */
+
+.alarm-dismissal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(239, 68, 68, 0.15);
+  backdrop-filter: blur(6px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 60;
+  animation: fadeIn 0.2s ease;
+}
+
+.alarm-dismissal-container {
+  background: white;
+  border-radius: 20px;
+  padding: 2rem;
+  max-width: 32rem;
+  width: 100%;
+  margin: 1rem;
+  box-shadow: 0 20px 60px rgba(239, 68, 68, 0.4);
+  border: 3px solid rgba(239, 68, 68, 0.3);
+  animation: slideUp 0.3s ease, pulse 1.5s ease infinite;
+}
+
+.alarm-dismissal-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+  padding-bottom: 1rem;
+  border-bottom: 2px solid rgba(239, 68, 68, 0.2);
+}
+
+.alarm-dismissal-icon {
+  width: 60px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #fee2e2, #fecaca);
+  color: #ef4444;
+  flex-shrink: 0;
+  animation: pulse-icon 2s ease infinite;
+  box-shadow: 0 4px 15px rgba(239, 68, 68, 0.3);
+}
+
+.alarm-dismissal-title-section {
+  flex: 1;
+}
+
+.alarm-dismissal-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #dc2626;
+  margin-bottom: 0.25rem;
+}
+
+.alarm-dismissal-subtitle {
+  font-size: 0.875rem;
+  color: #6b7280;
+  font-weight: 500;
+}
+
+.alarm-dismissal-content {
+  margin-bottom: 1.5rem;
+}
+
+.alarm-reason-display {
+  background: linear-gradient(135deg, rgba(254, 242, 242, 0.8), rgba(255, 255, 255, 0.9));
+  border-left: 4px solid #ef4444;
+  border-radius: 12px;
+  padding: 1rem 1.25rem;
+  margin-bottom: 1.5rem;
+}
+
+.alarm-reason-label {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #991b1b;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 0.5rem;
+}
+
+.alarm-reason-text {
+  font-size: 1rem;
+  color: #1f2937;
+  font-weight: 600;
+  line-height: 1.5;
+}
+
+.alarm-patient-info {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1rem;
+  background: rgba(102, 126, 234, 0.1);
+  border-radius: 10px;
+  margin-bottom: 1.5rem;
+}
+
+.alarm-patient-info-icon {
+  color: #667eea;
+}
+
+.alarm-patient-name {
+  font-size: 0.9375rem;
+  color: #374151;
+  font-weight: 600;
+}
+
+.alarm-patient-name strong {
+  color: #667eea;
+}
+
+.alarm-dismissal-form-group {
+  margin-bottom: 1.5rem;
+}
+
+.alarm-dismissal-label {
+  display: block;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: #374151;
+  margin-bottom: 0.75rem;
+}
+
+.alarm-dismissal-label .required {
+  color: #ef4444;
+  margin-left: 0.25rem;
+}
+
+.alarm-dismissal-textarea {
+  width: 100%;
+  min-height: 120px;
+  padding: 1rem;
+  border: 2px solid rgba(239, 68, 68, 0.2);
+  border-radius: 12px;
+  font-size: 0.9375rem;
+  font-family: inherit;
+  resize: vertical;
+  transition: all 0.2s ease;
+  background: white;
+  color: #1f2937;
+}
+
+.alarm-dismissal-textarea:focus {
+  outline: none;
+  border-color: #ef4444;
+  box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.1);
+}
+
+.alarm-dismissal-textarea::placeholder {
+  color: #9ca3af;
+}
+
+.alarm-dismissal-textarea:hover {
+  border-color: rgba(239, 68, 68, 0.4);
+}
+
+.alarm-char-count {
+  font-size: 0.75rem;
+  color: #6b7280;
+  text-align: right;
+  margin-top: 0.5rem;
+}
+
+.alarm-dismissal-info-box {
+  background: linear-gradient(135deg, #fef3c7, #fde68a);
+  border: 2px solid #fbbf24;
+  border-radius: 12px;
+  padding: 1rem;
+  display: flex;
+  gap: 0.75rem;
+  margin-bottom: 1.5rem;
+}
+
+.alarm-info-icon {
+  color: #f59e0b;
+  flex-shrink: 0;
+  margin-top: 0.125rem;
+}
+
+.alarm-info-text {
+  font-size: 0.875rem;
+  color: #92400e;
+  line-height: 1.5;
+}
+
+.alarm-dismissal-actions {
+  display: flex;
+  gap: 0.75rem;
+}
+
+.alarm-confirm-btn {
+  flex: 1;
+  background: linear-gradient(135deg, #ef4444, #dc2626);
+  color: white;
+  padding: 0.875rem 1.5rem;
+  border-radius: 12px;
+  border: none;
+  font-weight: 600;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(239, 68, 68, 0.3);
+}
+
+.alarm-confirm-btn:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 25px rgba(239, 68, 68, 0.4);
+  background: linear-gradient(135deg, #dc2626, #b91c1c);
+}
+
+.alarm-confirm-btn:active:not(:disabled) {
+  transform: translateY(0);
+}
+
+.alarm-confirm-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.alarm-cancel-btn {
+  padding: 0.875rem 1.5rem;
+  border: 2px solid rgba(107, 114, 128, 0.3);
+  border-radius: 12px;
+  background: white;
+  color: #374151;
+  font-weight: 600;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.alarm-cancel-btn:hover {
+  background: rgba(107, 114, 128, 0.05);
+  border-color: rgba(107, 114, 128, 0.5);
+}
+
+.alarm-cancel-btn:active {
+  transform: scale(0.98);
+}
+
+/* Loading State */
+.alarm-confirm-btn.loading {
+  position: relative;
+  color: transparent;
+}
+
+.alarm-confirm-btn.loading::after {
+  content: '';
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  top: 50%;
+  left: 50%;
+  margin-left: -10px;
+  margin-top: -10px;
+  border: 3px solid rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  border-top-color: white;
+  animation: spin 0.8s linear infinite;
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes pulse {
+  0%, 100% {
+    box-shadow: 0 20px 60px rgba(239, 68, 68, 0.4);
+  }
+  50% {
+    box-shadow: 0 20px 60px rgba(239, 68, 68, 0.6);
+  }
+}
+
+@keyframes pulse-icon {
+  0%, 100% {
+    transform: scale(1);
+    box-shadow: 0 4px 15px rgba(239, 68, 68, 0.3);
+  }
+  50% {
+    transform: scale(1.05);
+    box-shadow: 0 6px 20px rgba(239, 68, 68, 0.5);
+  }
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Responsive Design */
+@media (max-width: 640px) {
+  .alarm-dismissal-container {
+    padding: 1.5rem;
+    margin: 0.5rem;
+  }
+
+  .alarm-dismissal-title {
+    font-size: 1.25rem;
+  }
+
+  .alarm-dismissal-icon {
+    width: 50px;
+    height: 50px;
+  }
+
+  .alarm-dismissal-actions {
+    flex-direction: column;
+  }
+
+  .alarm-cancel-btn {
+    order: 2;
+  }
+}
