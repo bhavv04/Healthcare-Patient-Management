@@ -2,12 +2,14 @@ import { useState, useEffect } from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
 import './App.css';
 import { supabase } from './supabaseClient';
-import Login from './Login';
+import Login from './login';
 import Register from './Register'; 
 import ForgotPassword from './ForgotPassword';
 import UpdatePassword from './UpdatePassword';
 import Dashboard from './Dashboard';
 import Home from './Home';
+
+
 
 function App() {
   const [session, setSession] = useState(null);
