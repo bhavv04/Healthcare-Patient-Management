@@ -1,0 +1,361 @@
+/* Threshold Settings Modal Styles */
+
+.threshold-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 50;
+  animation: fadeIn 0.2s ease;
+}
+
+.threshold-modal-container {
+  background: white;
+  border-radius: 20px;
+  padding: 2rem;
+  max-width: 42rem;
+  width: 100%;
+  margin: 1rem;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+  animation: slideUp 0.3s ease;
+}
+
+.threshold-modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+  padding-bottom: 1rem;
+  border-bottom: 2px solid rgba(102, 126, 234, 0.2);
+}
+
+.threshold-modal-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.threshold-modal-close-btn {
+  color: #6b7280;
+  transition: all 0.2s ease;
+  padding: 0.5rem;
+  border-radius: 8px;
+  cursor: pointer;
+  background: transparent;
+  border: none;
+}
+
+.threshold-modal-close-btn:hover {
+  color: #374151;
+  background: rgba(102, 126, 234, 0.1);
+  transform: rotate(90deg);
+}
+
+.threshold-sections-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.threshold-section {
+  border: 2px solid rgba(102, 126, 234, 0.15);
+  border-radius: 16px;
+  padding: 1.5rem;
+  background: linear-gradient(135deg, rgba(102, 126, 234, 0.03), rgba(118, 75, 162, 0.03));
+  transition: all 0.3s ease;
+}
+
+.threshold-section:hover {
+  border-color: rgba(102, 126, 234, 0.3);
+  box-shadow: 0 4px 20px rgba(102, 126, 234, 0.1);
+  transform: translateY(-2px);
+}
+
+.threshold-section-header {
+  font-size: 1.125rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: #1f2937;
+}
+
+.threshold-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.5rem;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.8);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.threshold-icon.heart {
+  color: #ef4444;
+  background: linear-gradient(135deg, #fee2e2, #fecaca);
+}
+
+.threshold-icon.temp {
+  color: #f97316;
+  background: linear-gradient(135deg, #ffedd5, #fed7aa);
+}
+
+.threshold-icon.oxygen {
+  color: #3b82f6;
+  background: linear-gradient(135deg, #dbeafe, #bfdbfe);
+}
+
+.threshold-icon.pressure {
+  color: #a855f7;
+  background: linear-gradient(135deg, #f3e8ff, #e9d5ff);
+}
+
+.threshold-inputs-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+}
+
+.threshold-input-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.threshold-input-label {
+  display: block;
+  font-size: 0.875rem;
+  font-weight: 500;
+  margin-bottom: 0.5rem;
+  color: #4b5563;
+}
+
+.threshold-input {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border: 2px solid rgba(102, 126, 234, 0.2);
+  border-radius: 10px;
+  font-size: 0.9375rem;
+  transition: all 0.2s ease;
+  background: white;
+  color: #1f2937;
+  font-weight: 500;
+}
+
+.threshold-input:focus {
+  outline: none;
+  border-color: #667eea;
+  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+  transform: translateY(-1px);
+}
+
+.threshold-input:hover {
+  border-color: rgba(102, 126, 234, 0.4);
+}
+
+.threshold-subsection {
+  margin-top: 1rem;
+}
+
+.threshold-subsection:first-child {
+  margin-top: 0;
+}
+
+.threshold-subsection-title {
+  display: block;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  margin-bottom: 0.75rem;
+  color: #374151;
+  padding-left: 0.25rem;
+}
+
+.threshold-single-input {
+  width: 100%;
+}
+
+.threshold-warning-box {
+  background: linear-gradient(135deg, #fef3c7, #fde68a);
+  border: 2px solid #fbbf24;
+  border-radius: 12px;
+  padding: 1.25rem;
+  margin-top: 1.5rem;
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+}
+
+.threshold-warning-icon {
+  color: #f59e0b;
+  flex-shrink: 0;
+  margin-top: 0.125rem;
+}
+
+.threshold-warning-text {
+  font-size: 0.875rem;
+  color: #92400e;
+  line-height: 1.5;
+}
+
+.threshold-warning-text strong {
+  font-weight: 700;
+  color: #78350f;
+}
+
+.threshold-modal-actions {
+  display: flex;
+  gap: 0.75rem;
+  margin-top: 1.5rem;
+}
+
+.threshold-submit-btn {
+  flex: 1;
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  color: white;
+  padding: 0.875rem 1.5rem;
+  border-radius: 12px;
+  border: none;
+  font-weight: 600;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+}
+
+.threshold-submit-btn:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 25px rgba(102, 126, 234, 0.4);
+}
+
+.threshold-submit-btn:active:not(:disabled) {
+  transform: translateY(0);
+}
+
+.threshold-submit-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.threshold-cancel-btn {
+  padding: 0.875rem 1.5rem;
+  border: 2px solid rgba(102, 126, 234, 0.3);
+  border-radius: 12px;
+  background: white;
+  color: #374151;
+  font-weight: 600;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.threshold-cancel-btn:hover {
+  background: rgba(102, 126, 234, 0.05);
+  border-color: rgba(102, 126, 234, 0.5);
+}
+
+.threshold-cancel-btn:active {
+  transform: scale(0.98);
+}
+
+/* Scrollbar Styling */
+.threshold-modal-container::-webkit-scrollbar {
+  width: 8px;
+}
+
+.threshold-modal-container::-webkit-scrollbar-track {
+  background: rgba(102, 126, 234, 0.05);
+  border-radius: 10px;
+}
+
+.threshold-modal-container::-webkit-scrollbar-thumb {
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  border-radius: 10px;
+}
+
+.threshold-modal-container::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(135deg, #5568d3, #6a3f8f);
+}
+
+/* Loading State */
+.threshold-submit-btn.loading {
+  position: relative;
+  color: transparent;
+}
+
+.threshold-submit-btn.loading::after {
+  content: '';
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  top: 50%;
+  left: 50%;
+  margin-left: -10px;
+  margin-top: -10px;
+  border: 3px solid rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  border-top-color: white;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Responsive Design */
+@media (max-width: 640px) {
+  .threshold-modal-container {
+    padding: 1.5rem;
+    margin: 0.5rem;
+  }
+
+  .threshold-modal-title {
+    font-size: 1.25rem;
+  }
+
+  .threshold-inputs-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .threshold-section {
+    padding: 1rem;
+  }
+
+  .threshold-modal-actions {
+    flex-direction: column;
+  }
+
+  .threshold-cancel-btn {
+    order: 2;
+  }
+}

@@ -30,7 +30,6 @@ function App() {
 
   return (
     <div className="App">
-      <h1>Patient Monitoring System</h1>
       <Routes>
         {/* Home route */}
         <Route 
