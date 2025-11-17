@@ -2,7 +2,32 @@ import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { supabase } from './supabaseClient';
 import './login.css';
+// Add a fixed footer to the page with the required text
+(function () {
+  const footer = document.createElement('div');
+  footer.textContent = 'Secured by HIPAA-compliant encryption';
+  footer.className = 'hipaa-footer';
 
+  Object.assign(footer.style, {
+    position: 'fixed',
+    bottom: '0',
+    left: '0',
+    right: '0',
+    textAlign: 'center',
+    padding: '8px 12px',
+    background: 'rgba(255, 255, 255, 0.95)',
+    color: '#333',
+    fontSize: '13px',
+    boxShadow: '0 -1px 4px rgba(0,0,0,0.08)',
+    zIndex: '1000',
+  });
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', () => document.body.appendChild(footer));
+  } else {
+    document.body.appendChild(footer);
+  }
+})();
 function Login() {
   const [loading, setLoading] = useState(false);
   const [email, setEmail] = useState('');
