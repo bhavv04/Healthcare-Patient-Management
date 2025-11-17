@@ -1,3 +1,57 @@
+/* page wrapper to give the whole page breathing room and center the content */
+.page-wrapper {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 48px 20px;
+    background: linear-gradient(180deg, rgba(227,242,253,0.6) 0%, rgba(227,242,253,1) 100%);
+}
+
+/* single white card that holds all inputs, buttons and related controls */
+.form-card {
+    background: #ffffff;
+    border-radius: 12px;
+    padding: 32px;
+    width: 100%;
+    max-width: 420px;
+    box-shadow: 0 8px 30px rgba(20,20,40,0.06);
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+/* ensure form controls inside the card appear unified */
+.form-card input,
+.form-card button {
+    border-radius: 8px;
+    transition: box-shadow .15s, transform .06s;
+}
+
+/* subtle focus halo for inputs inside the card */
+.form-card input:focus {
+    box-shadow: 0 0 0 4px rgba(25,118,210,0.08);
+}
+
+/* small press effect for buttons */
+.form-card button:active {
+    transform: translateY(1px);
+}
+
+/* keep the forgot-password/footer links visually inside the card */
+.form-card .forgot-password {
+    margin-top: 8px;
+    text-align: center;
+}
+
+/* mobile adjustments */
+@media (max-width: 420px) {
+    .form-card {
+        padding: 20px;
+        border-radius: 10px;
+    }
+}
+
 * {
     margin: 0;
     padding: 0;
