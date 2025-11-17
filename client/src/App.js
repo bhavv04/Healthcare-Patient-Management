@@ -9,8 +9,6 @@ import UpdatePassword from './UpdatePassword';
 import Dashboard from './Dashboard';
 import Home from './Home';
 
-
-
 function App() {
   const [session, setSession] = useState(null);
 
