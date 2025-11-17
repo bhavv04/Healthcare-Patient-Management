@@ -1,17 +1,20 @@
 import { Link } from 'react-router-dom';
+import './Home.css';   
 
 function Home() {
   return (
-    <div>
-      <h2>Welcome to Patient Monitoring System</h2>
-      <p>Please login or register to continue.</p>
+    <div className="home-container">
+      <h2 className="home-title">Welcome to Patient Monitoring System</h2>
+      <p className="home-text">Please login or register to continue.</p>
       
       <Link to="/login">
-        <button>Login</button>
+        <button className="home-btn">Login</button>
       </Link>
+
       <br />
+
       <Link to="/register">
-        <button>Sign Up</button>
+        <button className="home-btn">Sign Up</button>
       </Link>
     </div>
   );
