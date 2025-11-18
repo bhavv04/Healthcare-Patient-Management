@@ -1,4 +1,5 @@
 import { X } from 'lucide-react';
+import '../styles/patientFormModal.css';
 
 function PatientFormModal({ 
   isOpen, 
@@ -86,54 +87,54 @@ function PatientFormModal({
                 value={patientForm.allergies}
                 onChange={(e) => setPatientForm({...patientForm, allergies: e.target.value})}
                 placeholder="e.g., Penicillin, Peanuts"
-                className="w-full px-3 py-2 border rounded focus:ring-2 focus:ring-blue-500"
+                className="form-input"
               />
             </div>
 
             <div className="col-span-2">
-              <label className="block text-sm font-medium mb-1">Medical History</label>
+              <label className="form-label">Medical History</label>
               <textarea
                 value={patientForm.medical_history}
                 onChange={(e) => setPatientForm({...patientForm, medical_history: e.target.value})}
                 rows={2}
-                className="w-full px-3 py-2 border rounded focus:ring-2 focus:ring-blue-500"
+                className="form-textarea"
                 placeholder="Enter relevant medical history..."
               />
             </div>
 
             <div>
-              <label className="block text-sm font-medium mb-1">Emergency Contact Name</label>
+              <label className="form-label">Emergency Contact Name</label>
               <input
                 type="text"
                 value={patientForm.emergency_contact}
                 onChange={(e) => setPatientForm({...patientForm, emergency_contact: e.target.value})}
-                className="w-full px-3 py-2 border rounded focus:ring-2 focus:ring-blue-500"
+                className="form-input"
               />
             </div>
 
             <div>
-              <label className="block text-sm font-medium mb-1">Emergency Contact Phone</label>
+              <label className="form-label">Emergency Contact Phone</label>
               <input
                 type="tel"
                 value={patientForm.emergency_phone}
                 onChange={(e) => setPatientForm({...patientForm, emergency_phone: e.target.value})}
-                className="w-full px-3 py-2 border rounded focus:ring-2 focus:ring-blue-500"
+                className="form-input"
               />
             </div>
           </div>
 
-          <div className="flex gap-3 mt-6">
+          <div className="modal-actions">
             <button
               type="submit"
               disabled={loading}
-              className="flex-1 bg-blue-500 text-white py-2 rounded hover:bg-blue-600 disabled:bg-gray-400"
+              className={"submit-btn" + (loading ? ' loading' : '')}
             >
               {loading ? 'Saving...' : (isEditing ? 'Update' : 'Add Patient')}
             </button>
             <button
               type="button"
               onClick={onClose}
-              className="px-6 py-2 border rounded hover:bg-gray-100"
+              className="cancel-btn"
             >
               Cancel
             </button>
