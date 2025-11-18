@@ -6,10 +6,12 @@
   background: rgba(0, 0, 0, 0.6);
   backdrop-filter: blur(4px);
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: center;
   z-index: 50;
   animation: fadeIn 0.2s ease;
+  padding-top: 120px;
+  overflow-y: auto;
 }
 
 .threshold-modal-container {
@@ -19,7 +21,7 @@
   max-width: 42rem;
   width: 100%;
   margin: 1rem;
-  max-height: 90vh;
+  max-height: 80vh;
   overflow-y: auto;
   box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
   animation: slideUp 0.3s ease;
@@ -69,7 +71,11 @@
   border: 2px solid rgba(102, 126, 234, 0.15);
   border-radius: 16px;
   padding: 1.5rem;
-  background: linear-gradient(135deg, rgba(102, 126, 234, 0.03), rgba(118, 75, 162, 0.03));
+  background: linear-gradient(
+    135deg,
+    rgba(102, 126, 234, 0.03),
+    rgba(118, 75, 162, 0.03)
+  );
   transition: all 0.3s ease;
 }
 
@@ -292,7 +298,7 @@
 }
 
 .threshold-submit-btn.loading::after {
-  content: '';
+  content: "";
   position: absolute;
   width: 20px;
   height: 20px;
