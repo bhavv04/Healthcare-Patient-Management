@@ -29,6 +29,12 @@ function MonitorView({ selectedPatient, vitalSigns, thresholds, alarmsEnabled, s
         
         <div className="patient-info-content">
           <div className="patient-info-grid">
+            {selectedPatient.username && (
+              <div className="patient-info-item">
+                <span className="info-label">Username:</span>
+                <span className="info-value">{selectedPatient.username}</span>
+              </div>
+            )}
             <div className="patient-info-item">
               <span className="info-label">Age:</span>
               <span className="info-value">{selectedPatient.age || 'N/A'}</span>

@@ -8,6 +8,7 @@ function Login() {
   const [email, setEmail] = useState(''); // Pre-filled from design
   const [password, setPassword] = useState('');
   const [message, setMessage] = useState('');
+  const [portalType, setPortalType] = useState('administrator'); // 'patient' or 'administrator'
   const navigate = useNavigate();
 
   const handleLogin = async (e) => {
@@ -15,21 +16,72 @@ function Login() {
     setLoading(true);
     setMessage('');
 
-    const { error } = await supabase.auth.signInWithPassword({
-      email: email,
-      password: password,
-    });
+    if (portalType === 'patient') {
+      // Patient login with username only
+      try {
+        console.log('Attempting patient login with username:', email.trim());
+        
+        const { data, error } = await supabase
+          .from('patients')
+          .select('*')
+          .eq('username', email.trim());
 
-    if (error) {
-      setMessage(`Login failed: ${error.message}`);
+        console.log('Query response - data:', data);
+        console.log('Query response - error:', error);
+
+        if (error) {
+          console.error('Database error:', error);
+          setMessage(`Login failed: ${error.message}`);
+          setLoading(false);
+          return;
+        }
+
+        if (!data || data.length === 0) {
+          console.log('No patient found with username:', email.trim());
+          setMessage('Login failed: Invalid username. Please check your username and try again.');
+          setLoading(false);
+          return;
+        }
+
+        const patient = data[0];
+        console.log('Patient found:', patient);
+
+        // Store patient info in localStorage for patient dashboard
+        localStorage.setItem('patientData', JSON.stringify(patient));
+        localStorage.setItem('portalType', 'patient');
+        
+        setMessage('Logged in! Redirecting...');
+        setTimeout(() => {
+          navigate('/patient-dashboard');
+        }, 1500);
+        setLoading(false);
+      } catch (err) {
+        console.error('Caught exception:', err);
+        setMessage(`Login failed: ${err.message}`);
+        setLoading(false);
+      }
     } else {
-      setMessage('Logged in! Redirecting...');
-      // Wait a moment so the user can see the message
-      setTimeout(() => {
-        navigate('/dashboard');
-      }, 1500);
+      // Administrator login with email and password
+      const { data, error } = await supabase.auth.signInWithPassword({
+        email: email,
+        password: password,
+      });
+
+      if (error) {
+        setMessage(`Login failed: ${error.message}`);
+        setLoading(false);
+      } else {
+        if (data.user) {
+          localStorage.setItem('portalType', 'administrator');
+        }
+        
+        setMessage('Logged in! Redirecting...');
+        setTimeout(() => {
+          navigate('/dashboard');
+        }, 1500);
+        setLoading(false);
+      }
     }
-    setLoading(false);
   };
 
   return (
@@ -57,10 +109,18 @@ function Login() {
         <p className="subtitle">Choose your portal to continue</p>
 
         <div className="portal-toggle">
-          <button className="toggle-btn" type="button">
+          <button 
+            className={`toggle-btn ${portalType === 'patient' ? 'active' : ''}`}
+            type="button"
+            onClick={() => setPortalType('patient')}
+          >
             Patient
           </button>
-          <button className="toggle-btn active" type="button">
+          <button 
+            className={`toggle-btn ${portalType === 'administrator' ? 'active' : ''}`}
+            type="button"
+            onClick={() => setPortalType('administrator')}
+          >
             Administrator
           </button>
         </div>
@@ -68,34 +128,36 @@ function Login() {
         {/* This is your login form, now with the new styles */}
         <form className="login-form" onSubmit={handleLogin}>
           <div className="form-group">
-            <label htmlFor="email">Email</label>
+            <label htmlFor="email">{portalType === 'patient' ? 'Username' : 'Email'}</label>
             <input
-              type="email"
+              type={portalType === 'patient' ? 'text' : 'email'}
               id="email"
-              placeholder='Enter your email'
+              placeholder={portalType === 'patient' ? 'Enter your username' : 'Enter your email'}
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
             />
           </div>
           
-          <div className="form-group">
-            <label htmlFor="password">Password</label>
-            <input
-              type="password"
-              id="password"
-              placeholder="Enter your password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              required
-            />
-          </div>
+          {portalType === 'administrator' && (
+            <div className="form-group">
+              <label htmlFor="password">Password</label>
+              <input
+                type="password"
+                id="password"
+                placeholder="Enter your password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                required
+              />
+            </div>
+          )}
 
           {/* Your logic for the message is included here */}
           {message && <p className="form-message">{message}</p>}
 
           <button type="submit" className="submit-btn" disabled={loading}>
-            {loading ? 'Logging in...' : 'Sign In as Administrator'}
+            {loading ? 'Logging in...' : `Sign In as ${portalType === 'patient' ? 'Patient' : 'Administrator'}`}
           </button>
         </form>
 
@@ -108,9 +170,15 @@ function Login() {
           Forgot Password?
         </Link>
         
-        <Link to="/register" className="register-link">
-          Don't have an account? Register
-        </Link>
+        {portalType === 'administrator' ? (
+          <Link to="/register" className="register-link">
+            Don't have an account? Register
+          </Link>
+        ) : (
+          <p className="register-link" style={{cursor: 'default', color: '#666'}}>
+            Consult your doctor for username and password
+          </p>
+        )}
       </main>
 
       {/* This is the footer, now part of your React component */}

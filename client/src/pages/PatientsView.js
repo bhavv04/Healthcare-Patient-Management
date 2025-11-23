@@ -19,6 +19,11 @@ function PatientsView({ patients, onAddPatient, onEditPatient, onDeletePatient }
               <div className="patient-detail-content">
                 <div className="patient-detail-info">
                   <p className="patient-detail-name">{patient.name}</p>
+                  {patient.username && (
+                    <p className="detail-item" style={{fontWeight: 'bold', color: '#2563eb'}}>
+                      Username: {patient.username}
+                    </p>
+                  )}
                   <div className="patient-detail-grid">
                     <p className="detail-item">Age: {patient.age || 'N/A'}</p>
                     <p className="detail-item">Gender: {patient.gender || 'N/A'}</p>

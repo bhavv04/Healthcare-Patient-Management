@@ -1,6 +1,57 @@
 import { supabase } from '../supabaseClient';
 
 /**
+ * Generate a unique username for a patient
+ */
+const generateUsername = (patientName) => {
+  // Remove spaces and special characters, convert to lowercase
+  const cleanName = patientName.toLowerCase().replace(/[^a-z0-9]/g, '');
+  // Take first 6 characters of name
+  const namePrefix = cleanName.substring(0, 6);
+  // Add random 4-digit number
+  const randomSuffix = Math.floor(1000 + Math.random() * 9000);
+  // Generate timestamp-based suffix for extra uniqueness
+  const timestamp = Date.now().toString().slice(-3);
+  
+  return `${namePrefix}${randomSuffix}${timestamp}`;
+};
+
+/**
+ * Check if username already exists
+ */
+const isUsernameUnique = async (username) => {
+  const { data, error } = await supabase
+    .from('patients')
+    .select('username')
+    .eq('username', username)
+    .single();
+  
+  return error !== null; // If error (not found), username is unique
+};
+
+/**
+ * Generate a unique username with retry logic
+ */
+const generateUniqueUsername = async (patientName) => {
+  let username = generateUsername(patientName);
+  let attempts = 0;
+  const maxAttempts = 5;
+  
+  while (attempts < maxAttempts) {
+    const isUnique = await isUsernameUnique(username);
+    if (isUnique) {
+      return username;
+    }
+    // If not unique, generate a new one
+    username = generateUsername(patientName);
+    attempts++;
+  }
+  
+  // Fallback: add a longer timestamp if all attempts failed
+  return `${username}${Date.now()}`;
+};
+
+/**
  * Fetch all patients for the current user
  */
 export const fetchPatients = async (userId) => {
@@ -18,12 +69,16 @@ export const fetchPatients = async (userId) => {
  * Add a new patient
  */
 export const addPatient = async (patientData, userId) => {
+  // Generate unique username
+  const username = await generateUniqueUsername(patientData.name);
+  
   const { data, error } = await supabase
     .from('patients')
     .insert([{
       ...patientData,
       age: patientData.age ? parseInt(patientData.age) : null,
-      user_id: userId
+      user_id: userId,
+      username: username
     }])
     .select();
 
