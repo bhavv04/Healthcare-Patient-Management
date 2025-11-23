@@ -156,8 +156,9 @@ function Dashboard({ session }) {
     e.preventDefault();
     setLoading(true);
     try {
-      await addPatient(patientForm, session.user.id);
-      setMessage(`Patient "${patientForm.name}" added successfully`);
+      const result = await addPatient(patientForm, session.user.id);
+      const newPatient = result[0];
+      setMessage(`Patient "${patientForm.name}" added successfully with username: ${newPatient.username}`);
       setPatientForm(EMPTY_PATIENT_FORM);
       setShowPatientForm(false);
       handleFetchPatients();

@@ -7,6 +7,7 @@ import Register from './Register';
 import ForgotPassword from './ForgotPassword';
 import UpdatePassword from './UpdatePassword';
 import Dashboard from './Dashboard';
+import PatientDashboard from './PatientDashboard';
 import Home from './Home';
 
 function App() {
@@ -73,6 +74,12 @@ function App() {
           element={
             session ? <Dashboard session={session} /> : <Navigate to="/login" />
           } 
+        />
+
+        {/* Patient Dashboard route */}
+        <Route 
+          path="/patient-dashboard" 
+          element={<PatientDashboard />} 
         />
       </Routes>
     </div>
