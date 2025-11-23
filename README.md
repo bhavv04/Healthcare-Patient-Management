@@ -192,8 +192,4 @@ The application uses SQLite for data storage. The database file (`database.db`) 
 
 This project is licensed under the MIT License.
 
-## Contributors
-
-Bhavdeep Arora
-Sabesen Pathmanathan
 
