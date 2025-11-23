@@ -59,9 +59,8 @@ body {
   padding: 1.5rem 3rem;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
   border-bottom: 1px solid var(--border-color);
-  position: sticky;
   top: 0;
-  z-index: 100;
+  z-index: 1;
 }
 
 .header-content {
@@ -319,7 +318,6 @@ body {
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
   height: fit-content;
   border: 1px solid var(--border-color);
-  position: sticky;
   top: 100px;
 }
 
@@ -517,27 +515,82 @@ body {
 
 /* ========== PATIENT INFO CARD ========== */
 .patient-info-card {
-  background: var(--card-bg);
-  backdrop-filter: blur(20px);
-  border-radius: 16px;
+  background: var(--surface-2);
+  backdrop-filter: blur(12px);
+  border-radius: var(--radius-l);
   padding: 1.75rem;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
-  border: 1px solid var(--border-color);
+  box-shadow: var(--shadow-soft);
+  border: 1px solid rgba(255, 255, 255, 0.06);
 }
 
 .patient-info-header {
   display: flex;
   justify-content: space-between;
-  align-items: start;
+  align-items: center;
   gap: 1.5rem;
+  margin-bottom: 1.5rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--border-color);
 }
 
 .patient-info-title {
-  font-size: 2rem;
-  font-weight: 800;
+  font-size: 1.5rem;
+  font-weight: 700;
   color: var(--text-white);
-  margin: 0 0 0.5rem 0;
-  letter-spacing: -0.02em;
+  margin: 0;
+  letter-spacing: -0.01em;
+}
+
+.patient-info-content {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.patient-info-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+}
+
+.patient-info-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.375rem;
+}
+
+.info-label {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--text-gray);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.info-value {
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: var(--text-white);
+}
+
+.patient-info-section {
+  padding-top: 1rem;
+  border-top: 1px solid var(--border-color);
+}
+
+.section-label {
+  font-size: 0.875rem;
+  font-weight: 700;
+  color: var(--text-light-gray);
+  display: block;
+  margin-bottom: 0.5rem;
+}
+
+.section-text {
+  font-size: 0.875rem;
+  color: var(--text-gray);
+  line-height: 1.6;
+  margin: 0;
 }
 
 .alarm-toggle {
@@ -809,7 +862,7 @@ body {
   padding: 2.25rem;
   max-width: 700px;
   width: 100%;
-  max-height: 90vh;
+  max-height: 100vh;
   overflow-y: auto;
   box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
   animation: slideUp 0.3s ease;

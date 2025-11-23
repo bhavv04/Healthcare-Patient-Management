@@ -15,29 +15,8 @@ function MonitorView({ selectedPatient, vitalSigns, thresholds, alarmsEnabled, s
     <div className="monitor-view">
       <div className="patient-info-card">
         <div className="patient-info-header">
-          <div className="flex-1">
+          <div>
             <h2 className="patient-info-title">{selectedPatient.name}</h2>
-            <div className="grid grid-cols-2 gap-x-4 mt-2 text-sm">
-              <p className="text-gray-600">Age: {selectedPatient.age || 'N/A'}</p>
-              <p className="text-gray-600">Gender: {selectedPatient.gender || 'N/A'}</p>
-              {selectedPatient.blood_type && (
-                <p className="text-gray-600">Blood Type: {selectedPatient.blood_type}</p>
-              )}
-              {selectedPatient.allergies && (
-                <p className="text-gray-600">Allergies: {selectedPatient.allergies}</p>
-              )}
-            </div>
-            {selectedPatient.medical_history && (
-              <p className="text-sm text-gray-500 mt-2">
-                <strong>Medical History:</strong> {selectedPatient.medical_history}
-              </p>
-            )}
-            {selectedPatient.emergency_contact && (
-              <p className="text-sm text-gray-500 mt-1">
-                <strong>Emergency Contact:</strong> {selectedPatient.emergency_contact} 
-                {selectedPatient.emergency_phone && ` (${selectedPatient.emergency_phone})`}
-              </p>
-            )}
           </div>
           <button
             onClick={() => setAlarmsEnabled(!alarmsEnabled)}
@@ -46,6 +25,48 @@ function MonitorView({ selectedPatient, vitalSigns, thresholds, alarmsEnabled, s
             {alarmsEnabled ? <Bell size={20} /> : <BellOff size={20} />}
             {alarmsEnabled ? 'Alarms On' : 'Alarms Off'}
           </button>
+        </div>
+        
+        <div className="patient-info-content">
+          <div className="patient-info-grid">
+            <div className="patient-info-item">
+              <span className="info-label">Age:</span>
+              <span className="info-value">{selectedPatient.age || 'N/A'}</span>
+            </div>
+            <div className="patient-info-item">
+              <span className="info-label">Gender:</span>
+              <span className="info-value">{selectedPatient.gender || 'N/A'}</span>
+            </div>
+            {selectedPatient.blood_type && (
+              <div className="patient-info-item">
+                <span className="info-label">Blood Type:</span>
+                <span className="info-value">{selectedPatient.blood_type}</span>
+              </div>
+            )}
+            {selectedPatient.allergies && (
+              <div className="patient-info-item">
+                <span className="info-label">Allergies:</span>
+                <span className="info-value">{selectedPatient.allergies}</span>
+              </div>
+            )}
+          </div>
+          
+          {selectedPatient.medical_history && (
+            <div className="patient-info-section">
+              <span className="section-label">Medical History:</span>
+              <p className="section-text">{selectedPatient.medical_history}</p>
+            </div>
+          )}
+          
+          {selectedPatient.emergency_contact && (
+            <div className="patient-info-section">
+              <span className="section-label">Emergency Contact:</span>
+              <p className="section-text">
+                {selectedPatient.emergency_contact}
+                {selectedPatient.emergency_phone && ` (${selectedPatient.emergency_phone})`}
+              </p>
+            </div>
+          )}
         </div>
       </div>
 
